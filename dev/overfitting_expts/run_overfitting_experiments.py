@@ -54,6 +54,22 @@ trainable_models = {
             },
         ),
     ),
+    "004": art.TrainableModel(
+        name="overfitting-004",
+        project="overfitting_experiments",
+        base_model="unsloth/Qwen3-30B-A3B-Instruct-2507",
+        config=OverfittingModelConfig(precalculate_logprobs=False),
+        _internal_config=art.dev.InternalModelConfig(
+            engine_args=art.dev.EngineArgs(gpu_memory_utilization=0.75),
+            # peft_args={
+            #     "target_modules": None,
+            #     "finetune_vision_layers": False,
+            #     "finetune_language_layers": True,
+            #     "finetune_attention_modules": True,
+            #     "finetune_mlp_modules": True,
+            # },
+        ),
+    ),
 }
 
 parser = argparse.ArgumentParser(
