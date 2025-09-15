@@ -58,16 +58,19 @@ trainable_models = {
         name="overfitting-004",
         project="overfitting_experiments",
         base_model="unsloth/Qwen3-30B-A3B-Instruct-2507",
+        # base_model="Qwen/Qwen2.5-3B-Instruct",
         config=OverfittingModelConfig(precalculate_logprobs=False),
         _internal_config=art.dev.InternalModelConfig(
+            _decouple_vllm_and_unsloth=True,
             engine_args=art.dev.EngineArgs(gpu_memory_utilization=0.75),
-            # peft_args={
-            #     "target_modules": None,
-            #     "finetune_vision_layers": False,
-            #     "finetune_language_layers": True,
-            #     "finetune_attention_modules": True,
-            #     "finetune_mlp_modules": True,
-            # },
+            peft_args={
+                "target_modules": [
+                    "q_proj",
+                    "k_proj",
+                    "v_proj",
+                    "o_proj",
+                ],
+            },
         ),
     ),
 }
@@ -127,8 +130,8 @@ def launch_model(model_key: str):
 
             # Install project in editable mode
             uv remove openpipe-art
-            uv add openpipe-art==0.4.5 --extra backend --extra plotting
-            # uv add --editable ~/ART --extra backend --extra plotting
+            # uv add openpipe-art==0.4.5 --extra backend --extra plotting
+            uv add --editable ~/ART --extra backend --extra plotting
 
             # Sync dependencies
             uv sync
@@ -139,10 +142,11 @@ def launch_model(model_key: str):
         f"""
         # Run the overfitting experiment
         uv remove openpipe-art
-        uv add openpipe-art==0.4.5 --extra backend --extra plotting
-        # uv add --editable ~/ART --extra backend --extra plotting
+        # uv add openpipe-art==0.4.5 --extra backend --extra plotting
+        uv add --editable ~/ART --extra backend --extra plotting
 
         echo '{model_json}' > model_config.json
+        export VLLM_ALLOW_INSECURE_SERIALIZATION=1
         uv run {args.experiment}.py
     """
     )

@@ -66,13 +66,14 @@ def get_model_config(
             "k_proj",
             "v_proj",
             "o_proj",
-            "gate_proj",
-            "up_proj",
-            "down_proj",
+            # "gate_proj",
+            # "up_proj",
+            # "down_proj",
         ],
         use_gradient_checkpointing="unsloth",
     )
     peft_args.update(config.get("peft_args", {}))
+    print(f"[DEBUG] peft_args after get_model_config update: {peft_args}")
     trainer_args = TrainerArgs(
         adam_beta1=0.9,
         adam_beta2=0.99,

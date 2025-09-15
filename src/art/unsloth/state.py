@@ -77,9 +77,16 @@ class ModelState:
 
         AsyncLLMEngine.from_engine_args = _from_engine_args
 
+        init_args = config.get("init_args", {})
+        print(init_args)
+        # if "enable_prefix_caching" in init_args:
+        #     init_args.pop("enable_prefix_caching")
+        # if "use_async" in init_args:
+        #     init_args.pop("use_async")
+
         self.model, self.tokenizer = cast(
             tuple[CausallLM, PreTrainedTokenizerBase],
-            unsloth.FastLanguageModel.from_pretrained(**config.get("init_args", {})),
+            unsloth.FastLanguageModel.from_pretrained(**init_args),
         )
         AsyncLLMEngine.from_engine_args = from_engine_args
         torch.cuda.empty_cache = empty_cache
