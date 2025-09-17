@@ -155,6 +155,6 @@ We use Mintlify to serve our docs. Here are the steps for adding a new page:
 3. Run npx mintlify dev to start serving a local version of the docs in your browser
 4. Create a new .mdx file in the relevant directory
 5. Add a title and sidebar title (see other pages for examples)
-6. Add a page link to docs.json within one of the `navigation`.`groups`
+6. In docs.json, add a link to the new page within one of the `navigation`.`groups`
 7. Ensure everything works by navigating to and viewing the page in your browser
 8. Submit a PR
