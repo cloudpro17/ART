@@ -6,7 +6,6 @@ import yaml
 from art import Trajectory, TrajectoryGroup
 from art.trajectories import History
 from art.types import Choice, Message, MessageOrChoice
-from art.utils.old_benchmarking.calculate_step_metrics import calculate_step_std_dev
 
 
 # serialize trajectory groups to a jsonl string

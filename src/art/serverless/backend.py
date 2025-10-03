@@ -4,9 +4,6 @@ import os
 
 from art.client import Client
 from art.utils.deploy_model import LoRADeploymentJob, LoRADeploymentProvider
-from art.utils.trajectory_logging import get_metric_averages
-import wandb
-import weave
 from wandb.sdk.wandb_run import Run
 from weave.trace.weave_client import WeaveClient
 
